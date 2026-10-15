@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: kafkademo
+  elasticsearch:
+    uris: ${ELASTICSEARCH_URIS:http://172.21.94.78:9200}
+  kafka:
+    bootstrap-servers: ${CONFLUENT_BOOTSTRAP_SERVERS:pkc-ldjyd.southamerica-east1.gcp.confluent.cloud:9092}
+
+    properties:
+      security.protocol: SASL_SSL
+      sasl.mechanism: PLAIN
+      sasl.jaas.config: org.apache.kafka.common.security.plain.PlainLoginModule required username='${CONFLUENT_API_KEY}' password='${CONFLUENT_API_SECRET}';
+
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: io.confluent.kafka.serializers.KafkaAvroSerializer
+      properties:
+          schema.registry.url: ${CONFLUENT_SCHEMA_REGISTRY_URL:https://psrc-xxxxx.us-east-1.aws.confluent.cloud}
+          basic.auth.credentials.source: USER_INFO
+          basic.auth.user.info: ${CONFLUENT_SR_API_KEY}:${CONFLUENT_SR_API_SECRET}
+
+    consumer:
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: io.confluent.kafka.serializers.KafkaAvroDeserializer
+      properties:
+          schema.registry.url: ${CONFLUENT_SCHEMA_REGISTRY_URL:https://psrc-xxxxx.us-east-1.aws.confluent.cloud}
+          basic.auth.credentials.source: USER_INFO
+          basic.auth.user.info: ${CONFLUENT_SR_API_KEY}:${CONFLUENT_SR_API_SECRET}
+          specific.avro.reader: true # OBRIGATORIO para ler como WikipediaRecentChangeDataAvro
+
+app:
+    topic:
+        name: wikipedia-recentchange

@@ -1,0 +1,56 @@
+{
+  "type": "record",
+  "name": "WikipediaRecentChangeDataAvro",
+  "namespace": "ai.aircompany.kafkademo.avro",
+  "doc": "Payload de dados (sem meta) do stream recentchange da Wikimedia",
+  "fields": [
+    { "name": "schema", "type": ["null", "string"], "default": null },
+    { "name": "id", "type": ["null", "long"], "default": null },
+    { "name": "type", "type": ["null", "string"], "default": null },
+    { "name": "namespace", "type": ["null", "int"], "default": null },
+    { "name": "title", "type": ["null", "string"], "default": null },
+    { "name": "title_url", "type": ["null", "string"], "default": null },
+    { "name": "comment", "type": ["null", "string"], "default": null },
+    { "name": "parsedcomment", "type": ["null", "string"], "default": null },
+    { "name": "timestamp", "type": ["null", "long"], "default": null },
+    { "name": "user", "type": ["null", "string"], "default": null },
+    { "name": "bot", "type": ["null", "boolean"], "default": null },
+    { "name": "notify_url", "type": ["null", "string"], "default": null },
+    { "name": "minor", "type": ["null", "boolean"], "default": null },
+    { "name": "patrolled", "type": ["null", "boolean"], "default": null },
+    {
+      "name": "length",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "LengthAvro",
+          "fields": [
+            { "name": "old", "type": ["null", "int"], "default": null },
+            { "name": "new", "type": ["null", "int"], "default": null }
+          ]
+        }
+      ],
+      "default": null
+    },
+    {
+      "name": "revision",
+      "type": [
+        "null",
+        {
+          "type": "record",
+          "name": "RevisionAvro",
+          "fields": [
+            { "name": "old", "type": ["null", "long"], "default": null },
+            { "name": "new", "type": ["null", "long"], "default": null }
+          ]
+        }
+      ],
+      "default": null
+    },
+    { "name": "server_url", "type": ["null", "string"], "default": null },
+    { "name": "server_name", "type": ["null", "string"], "default": null },
+    { "name": "server_script_path", "type": ["null", "string"], "default": null },
+    { "name": "wiki", "type": ["null", "string"], "default": null }
+  ]
+}

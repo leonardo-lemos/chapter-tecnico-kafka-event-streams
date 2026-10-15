@@ -1,0 +1,23 @@
+services:
+  elasticsearch:
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:9.3.3'
+    environment:
+      - 'ELASTIC_PASSWORD=secret'
+      - 'discovery.type=single-node'
+      - 'xpack.security.enabled=false'
+    ports:
+      - '9200:9200'
+      - '9300:9300'
+
+  kibana:
+    image: 'docker.elastic.co/kibana/kibana:9.3.3'
+    environment:
+      - 'ELASTICSEARCH_HOSTS=http://elasticsearch:9200'
+      - 'NODE_TLS_REJECT_UNAUTHORIZED=0'
+      - 'TELEMETRY_ENABLED=false'
+      - 'TELEMETRY_OPTIN=false'
+      - 'NEWSFEED_ENABLED=false'
+    ports:
+      - '5601:5601'
+    depends_on:
+      - elasticsearch
